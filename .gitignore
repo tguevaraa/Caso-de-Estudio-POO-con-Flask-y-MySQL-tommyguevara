@@ -66,3 +66,6 @@ Thumbs.db
 # Node (solo si se llega a usar frontend/herramientas)
 node_modules/
 .npm/
+
+# Otros
+.venv.example
