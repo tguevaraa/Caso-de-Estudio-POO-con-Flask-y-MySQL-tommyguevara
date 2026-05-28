@@ -9,7 +9,7 @@ participant ":ReservaRepository" as Repo
 Docente -> Controller : POST /reservas (datos)
 Controller -> Service : crear_reserva(dto)
 
-Service -> Repo : existe_conflicto(labId, fecha, inicio, fin)
+Service -> Repo : existe_conflicto(laboratorio_id, fecha_reserva, hora_inicio, hora_fin)
 Repo --> Service : false
 
 Service -> Repo : crear(reserva)

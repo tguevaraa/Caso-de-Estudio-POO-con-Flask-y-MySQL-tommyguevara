@@ -63,15 +63,15 @@ Establecer la correspondencia explícita entre el modelo orientado a objetos (cl
 
 ```sql
 -- ============================================================
--- SCHEMA: reservas_db
+-- SCHEMA: local_reservas_db
 -- Sistema de Reservas de Laboratorio
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS reservas_db
+CREATE DATABASE IF NOT EXISTS local_reservas_db
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-USE reservas_db;
+USE local_reservas_db;
 
 -- ------------------------------------------------------------
 -- Tabla: laboratorios

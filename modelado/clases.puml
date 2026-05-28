@@ -39,7 +39,7 @@ interface ReservaRepository {
   + listar(filtros): list
   + actualizar(reserva): void
   + eliminar(id): void
-  + existe_conflicto(lab, fecha, rango, excluir): bool
+  + existe_conflicto(laboratorio_id, fecha_reserva, hora_inicio, hora_fin, excluir_id=None): bool
 }
 
 class MySQLReservaRepository {

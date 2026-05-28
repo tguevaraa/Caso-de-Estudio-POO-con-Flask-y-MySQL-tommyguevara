@@ -1,7 +1,7 @@
 # Caso de Estudio POO — Sistema de Reservas de Laboratorio
 
 **Asignatura:** Programación Orientada a Objetos — UNEMI, Periodo Abril-Junio 2026
-**Stack:** Python 3.10+ · Flask 3.0.2 · MySQL 8.x · mysqlclient 2.2.4 · python-dotenv
+**Stack:** Python 3.12 · Flask 3.0.2 · MySQL 8.x · mysqlclient 2.2.4 · python-dotenv
 
 ---
 
@@ -17,12 +17,12 @@
 
 ## Requisitos Previos
 
-| Herramienta    | Verificación          |
-|----------------|-----------------------|
-| Python 3.10+   | `py --version`        |
-| pip            | `py -m pip --version` |
-| MySQL 8.x      | `mysql --version`     |
-| Git Bash       | Terminal recomendada  |
+| Herramienta    | Verificación                                      |
+|----------------|---------------------------------------------------|
+| Python 3.12    | `python3.12 --version` (Windows: `py --version`)   |
+| pip            | `python3.12 -m pip --version` (Windows: `py -m pip --version`) |
+| MySQL 8.x      | `mysql --version`                                 |
+| Git Bash / Bash| Terminal recomendada                              |
 
 ---
 
@@ -38,21 +38,49 @@ cd Caso-de-Estudio-POO-con-Flask-y-MySQL
 ### 2. Crear y activar el entorno virtual
 
 ```bash
-# Crear
-py -m venv .venv
-
-# Activar (Git Bash)
-source .venv/Scripts/activate
-
-# Activar (PowerShell)
-# .\.venv\Scripts\Activate.ps1
-
-# Activar (CMD)
-# .venv\Scripts\activate.bat
+# Crear con el mismo Python que se usará para ejecutar la app
+python3.12 -m venv .venv
 ```
 
-> Si PowerShell bloquea scripts, ejecuta una vez como administrador:
-> `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
+> En Windows, si `python3.12` no está disponible, usa:
+>
+> ```bash
+> py -3.12 -m venv .venv
+> ```
+>
+> En Linux/macOS, si `python3.12` no está disponible, usa:
+>
+> ```bash
+> python3 -m venv .venv
+> ```
+
+```bash
+# Activar en Linux / macOS
+source .venv/bin/activate
+```
+
+```bash
+# Activar en Git Bash sobre Windows
+source .venv/Scripts/activate
+```
+
+```powershell
+# Activar en Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+```
+
+```cmd
+:: Activar en Windows CMD
+.\.venv\Scripts\activate.bat
+```
+
+> Si el servicio falla con `ModuleNotFoundError: No module named 'flask'`, puede ser porque el entorno virtual quedó inconsistente. En ese caso elimina `.venv` y vuelve a crearlo con:
+>
+> ```bash
+> rm -rf .venv
+> python3.12 -m venv .venv
+> source .venv/bin/activate
+> ```
 
 ### 3. Instalar dependencias
 
@@ -62,15 +90,25 @@ pip install -r requirements.txt
 
 ### 4. Configurar variables de entorno
 
-Crea el archivo `.env` en la raíz del proyecto (nunca lo subas a git):
+Copia la plantilla y actualiza los valores locales:
+
+```bash
+cp .env.example .env
+```
 
 ```env
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=reservas_db
+DB_NAME=local_reservas_db
 DB_USER=root
 DB_PASSWORD=tu_password
 ```
+
+> Si usas Windows y prefieres copiar con CMD:
+>
+> ```cmd
+> copy .env.example .env
+> ```
 
 ### 5. Preparar la base de datos
 
@@ -78,7 +116,7 @@ DB_PASSWORD=tu_password
 # Opción A: cargar el schema desde terminal
 mysql -u root -p < schema.sql
 
-# Opción B: copiar el DDL desde 02-modelado-clases-vs-tablas-fisicas.md
+# Opción B (Recomendada): copiar el DDL desde 02-modelado-clases-vs-tablas-fisicas.md
 # y ejecutarlo en Workbench, DBeaver o HeidiSQL
 ```
 
@@ -101,7 +139,7 @@ curl http://localhost:5000/api/v1/reservas
 # Crear una reserva
 curl -X POST http://localhost:5000/api/v1/reservas \
   -H "Content-Type: application/json" \
-  -d '{"laboratorio_id": 1, "docente_id": 1, "curso_codigo": "INF-202", "fecha": "2026-06-01", "hora_inicio": "08:00", "hora_fin": "10:00"}'
+  -d '{"laboratorio_id": 1, "docente_id": 1, "curso_codigo": "INF-202", "fecha_reserva": "2026-06-01", "hora_inicio": "08:00", "hora_fin": "10:00"}'
 ```
 
 ---
